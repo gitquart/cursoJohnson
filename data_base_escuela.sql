@@ -17,7 +17,7 @@ el valor. El resto de campos pueden ser del tipo de dato que el usuario decida. 
 */
 
 CREATE TABLE tbAlumno (
-    idtbalumno int NOT NULL AUTO_INCREMENT,
+    idtbalumno int NOT NULL IDENTITY(1,1),
     nombre varchar(45) , 
     apellidoPaterno varchar(45),
     apellidoMaterno varchar (45),
@@ -27,7 +27,7 @@ CREATE TABLE tbAlumno (
 /*Misma lógica aplicada que en la tabla “tbAlumno” ahora en "tbMaestro" */   
 
 CREATE TABLE tbMaestro (
-    idtbmaestro int NOT NULL AUTO_INCREMENT,
+    idtbmaestro int NOT NULL IDENTITY(1,1),
     nombre varchar(45) ,
     apellidoPaterno varchar(45),
     apellidoMaterno varchar (45),
@@ -43,7 +43,7 @@ Para relacionar la tabla tbMateria con tbMaestro, necesitamos la instrucción de
 */
 
 CREATE TABLE tbMateria (
-    idtbmateria int NOT NULL AUTO_INCREMENT,
+    idtbmateria int NOT NULL IDENTITY(1,1),
     nombre varchar(45) ,
     descripción varchar(45),
     creditos int,
@@ -61,12 +61,12 @@ Al igual que en el ejemplo anterior, hacemos referencia de los campos foráneos 
 */
 
 CREATE TABLE tbAlumno_tbMaestro (
-    ID int NOT NULL AUTO_INCREMENT,
+    ID int NOT NULL IDENTITY(1,1),
     fk_idtbalumno INT,
     fk_idtbmaestro INT,    
     PRIMARY KEY (ID),
     FOREIGN KEY (fk_idtbalumno) REFERENCES tbAlumno  (idtbalumno),
-    FOREIGN KEY (fk_idmaestro) REFERENCES tbMaestro  (idtbmaestro));
+    FOREIGN KEY (fk_idtbmaestro) REFERENCES tbMaestro  (idtbmaestro));
 
 
 
