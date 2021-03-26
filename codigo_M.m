@@ -2,6 +2,10 @@
 Este código lee de un archivo Excel datos y los filtra por ciudad
 */
 
+/*
+Recomendaciones: Copiar el cuerpo de "Let" y pegarlo en query editor de Power Query para evitar errores
+de sintaxis
+*/
 
 Let
     Source = Excel.Workbook(File.Contents("C:\Users\1098350515\Documents\CursoJohnson\DB_Curso.xlsx"), null, true),
