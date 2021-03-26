@@ -1,3 +1,8 @@
+/*
+Este código lee de un archivo Excel datos y los filtra por ciudad
+*/
+
+
 Let
     Source = Excel.Workbook(File.Contents("C:\Users\1098350515\Documents\CursoJohnson\DB_Curso.xlsx"), null, true),
     #"Tabla 1_Sheet" = Source{[Item="Tabla 1",Kind="Sheet"]}[Data],
