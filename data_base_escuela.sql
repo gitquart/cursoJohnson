@@ -18,8 +18,8 @@ el valor. El resto de campos pueden ser del tipo de dato que el usuario decida. 
 
 CREATE TABLE tbAlumno (
     idtbalumno int NOT NULL IDENTITY(1,1),
-    nombre varchar(45) , 
-    apellidoPaterno varchar(45),
+    nombre varchar(50) , 
+    apellidoPaterno varchar(50),
     apellidoMaterno varchar (45),
     matricula varchar (45)
     PRIMARY KEY (idtbalumno));
@@ -34,6 +34,8 @@ CREATE TABLE tbMaestro (
     PRIMARY KEY ( idtbmaestro )
 );
 
+DROP TABLE [dbo].[tbAlumno];
+
 /*
 El campo “créditos” podemos escribirlo con acento o sin acento, sin embargo una buena práctica es escribirlo sin acento “creditos” por razones prácticas.
 El campo “créditos” se entiende que lleva un número, en este caso podemos decidir si ponerlo como tipo de dato texto o número, todo depende si el campo se usará en operaciones aritméticas. En este caso, asumiremos que “créditos” será usado para operaciones aritméticas, por tanto tiene tipo “INT” (Entero).
@@ -42,15 +44,18 @@ Para relacionar la tabla tbMateria con tbMaestro, necesitamos la instrucción de
 
 */
 
-CREATE TABLE tbMateria (
+CREATE TABLE tbMateria_2 (
     idtbmateria int NOT NULL IDENTITY(1,1),
     nombre varchar(45) ,
     descripción varchar(45),
     creditos int,
     fk_idmaestro int,
+	fk_idalumno int, 
     PRIMARY KEY (idtbmateria),
-    FOREIGN KEY (fk_idmaestro) REFERENCES tbMaestro  (idtbmaestro));
+    FOREIGN KEY (fk_idmaestro) REFERENCES tbMaestro  (idtbmaestro),
+	FOREIGN KEY (fk_idalumno) REFERENCES tbAlumno (idtbalumno));
 
+	SELECT * FROM tbMateria_2
 /*
 
 Finalmente terminamos con la tabla “tbAlumno_tbMaestro” que es una tabla transitoria ya que es el resultado de una relación “N a N”, el nombre de la tabla es libre, pero se recomienda poner un nombre alusivo a la relación de las tablas.
@@ -68,7 +73,17 @@ CREATE TABLE tbAlumno_tbMaestro (
     FOREIGN KEY (fk_idtbalumno) REFERENCES tbAlumno  (idtbalumno),
     FOREIGN KEY (fk_idtbmaestro) REFERENCES tbMaestro  (idtbmaestro));
 
+	/* Como ver la tabla en sentencia */
 
+	SELECT * FROM tbAlumno; 
 
+	INSERT INTO tbAlumno VALUES ('Raul','Ventura','Quintero','ABC1234')
 
+	INSERT INTO tbMaestro VALUES ('Martha', 'Palomo', 'Barajas')
+	INSERT INTO tbMaestro VALUES ('Emma', 'Coronado', 'Saucedo')
+
+	SELECT * FROM tbAlumno_tbMaestro;
+
+	INSERT INTO tbAlumno_tbMaestro VALUES (1,2)
+	
 
