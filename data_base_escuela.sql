@@ -93,5 +93,19 @@ SELECT column1, column2, ...
 FROM table_name
 WHERE condition;
 */
+
+/*Example of a cursor in sql*/
+
+DECLARE @Description AS nvarchar(400)
+DECLARE ProdInfo CURSOR FOR SELECT [Description] FROM Production.ProductDescription
+OPEN ProdInfo
+FETCH NEXT FROM ProdInfo INTO @Description
+WHILE @@fetch_status = 0
+BEGIN
+    PRINT @Description
+    FETCH NEXT FROM ProdInfo INTO @Description
+END
+CLOSE ProdInfo
+DEALLOCATE ProdInfo
 	
 
