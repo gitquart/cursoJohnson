@@ -117,3 +117,24 @@ ELSE 'The quantity is under 30'
 END AS QuantityText
 FROM OrderDetails;	
 
+/*Creating an Stored procedure with fetch cursor*/
+
+
+create procedure sp_WithFetch as
+begin
+
+DECLARE @ID AS int
+DECLARE crs CURSOR FOR SELECT idtbmaestro FROM tbMaestro
+OPEN crs
+FETCH NEXT FROM crs INTO @ID
+WHILE @@fetch_status = 0
+BEGIN
+    PRINT @ID
+    FETCH NEXT FROM crs INTO @ID
+END
+CLOSE crs
+DEALLOCATE crs
+
+end
+
+
