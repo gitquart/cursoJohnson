@@ -4,8 +4,14 @@ El prefijo “db” es una buena práctica para saber que el objeto es una base 
 
 */
 
+
+
+
+
 CREATE DATABASE dbSchool;
+
 USE dbSchool;
+
 
 /*
 Se crea la tabla tbAlumno, el campo “idtbalumno” es la llave primaria (PK), 
