@@ -4,8 +4,8 @@ El prefijo “db” es una buena práctica para saber que el objeto es una base 
 
 */
 
-CREATE DATABASE dbescuela;
-USE dbescuela;
+CREATE DATABASE dbSchool;
+USE dbSchool;
 
 /*
 Se crea la tabla tbAlumno, el campo “idtbalumno” es la llave primaria (PK), 
@@ -16,25 +16,32 @@ el valor. El resto de campos pueden ser del tipo de dato que el usuario decida. 
 
 */
 
-CREATE TABLE tbAlumno (
-    idtbalumno int NOT NULL IDENTITY(1,1),
-    nombre varchar(50) , 
-    apellidoPaterno varchar(50),
-    apellidoMaterno varchar (45),
-    matricula varchar (45)
-    PRIMARY KEY (idtbalumno));
+CREATE TABLE tbStudent (
+    idtbStudent int NOT NULL IDENTITY(1,1),
+    firstName varchar(50) , 
+    lastName varchar(50),
+    
+    PRIMARY KEY (idtbStudent));
 
 /*Misma lógica aplicada que en la tabla “tbAlumno” ahora en "tbMaestro" */   
 
-CREATE TABLE tbMaestro (
-    idtbmaestro int NOT NULL IDENTITY(1,1),
-    nombre varchar(45) ,
-    apellidoPaterno varchar(45),
-    apellidoMaterno varchar (45),
-    PRIMARY KEY ( idtbmaestro )
+
+
+
+
+
+CREATE TABLE tbTeacher (
+    idtbTeacher int NOT NULL IDENTITY(1,1),
+    firstName varchar(45) ,
+    lastName varchar(45),
+    PRIMARY KEY (idtbTeacher )
 );
 
-DROP TABLE [dbo].[tbAlumno];
+
+
+
+
+
 
 /*
 El campo “créditos” podemos escribirlo con acento o sin acento, sin embargo una buena práctica es escribirlo sin acento “creditos” por razones prácticas.
@@ -44,18 +51,18 @@ Para relacionar la tabla tbMateria con tbMaestro, necesitamos la instrucción de
 
 */
 
-CREATE TABLE tbMateria_2 (
-    idtbmateria int NOT NULL IDENTITY(1,1),
-    nombre varchar(45) ,
-    descripción varchar(45),
-    creditos int,
-    fk_idmaestro int,
-	fk_idalumno int, 
-    PRIMARY KEY (idtbmateria),
-    FOREIGN KEY (fk_idmaestro) REFERENCES tbMaestro  (idtbmaestro),
-	FOREIGN KEY (fk_idalumno) REFERENCES tbAlumno (idtbalumno));
+CREATE TABLE tbSubject (
+    idtSubject int NOT NULL IDENTITY(1,1),
+    subjectName varchar(45) ,
+    subjectDesc varchar(45),
+    credits int,
+    fk_idTeacher int,
+	fk_idStudent int, 
+    PRIMARY KEY (idtSubject),
+    FOREIGN KEY (fk_idTeacher) REFERENCES tbTeacher  (idtbTeacher),
+	FOREIGN KEY (fk_idStudent) REFERENCES tbStudent (idtbStudent));
 
-	SELECT * FROM tbMateria_2
+	
 /*
 
 Finalmente terminamos con la tabla “tbAlumno_tbMaestro” que es una tabla transitoria ya que es el resultado de una relación “N a N”, el nombre de la tabla es libre, pero se recomienda poner un nombre alusivo a la relación de las tablas.
@@ -65,24 +72,38 @@ Al igual que en el ejemplo anterior, hacemos referencia de los campos foráneos 
 
 */
 
-CREATE TABLE tbAlumno_tbMaestro (
+
+
+
+CREATE TABLE tbStudent_tbTeacher (
     ID int NOT NULL IDENTITY(1,1),
-    fk_idtbalumno INT,
-    fk_idtbmaestro INT,    
+    fk_idtbStudent INT,
+    fk_idtbTeacher INT,    
     PRIMARY KEY (ID),
-    FOREIGN KEY (fk_idtbalumno) REFERENCES tbAlumno  (idtbalumno),
-    FOREIGN KEY (fk_idtbmaestro) REFERENCES tbMaestro  (idtbmaestro));
+    FOREIGN KEY (fk_idtbStudent) REFERENCES tbStudent  (idtbStudent),
+    FOREIGN KEY (fk_idtbTeacher) REFERENCES tbTeacher  (idtbTeacher));
 
-	/* Como ver la tabla en sentencia */
 
-	SELECT * FROM tbAlumno; 
 
-	INSERT INTO tbAlumno VALUES ('Raul','Ventura','Quintero','ABC1234')
 
-	INSERT INTO tbMaestro VALUES ('Martha', 'Palomo', 'Barajas')
-	INSERT INTO tbMaestro VALUES ('Emma', 'Coronado', 'Saucedo')
 
-	SELECT * FROM tbAlumno_tbMaestro;
+
+
+
+
+	/* Insert records into table tbStudent */
+
+
+	INSERT INTO tbStudent VALUES ('John','Kirk')
+	INSERT INTO tbStudent VALUES ('Steve', 'Patrick')
+	INSERT INTO tbStudent VALUES ('Emma', 'Thompson')
+
+
+
+	SELECT * FROM tbStudent;
+
+
+
 
 	INSERT INTO tbAlumno_tbMaestro VALUES (1,2)
 
