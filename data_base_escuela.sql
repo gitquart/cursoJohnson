@@ -1,26 +1,9 @@
-/*
-Primero debemos crear la base de datos donde existirán nuestra tablas, en este caso: dbescuela. Y luego debemos “seleccionar” la base de datos, si sólo la creamos y no la seleccionamos no podremos trabajar con ella.
-El prefijo “db” es una buena práctica para saber que el objeto es una base de datos.
 
-*/
-
-
-
-
-
+/*Creatin of Database*/
 CREATE DATABASE dbSchool;
 
 USE dbSchool;
 
-
-/*
-Se crea la tabla tbAlumno, el campo “idtbalumno” es la llave primaria (PK), 
-por tanto, no puede ser nulo (Not null), su tipo es “número” (int) , puede ser otro tipo 
-de dato pero normalmente las llaves primarias son números y auto incrementables (AUTO_INCREMENT) 
-para que no se repitan. La PK puede ser otro tipo de dato como UUIDD, GUID, etc, mientras hagan único 
-el valor. El resto de campos pueden ser del tipo de dato que el usuario decida. De manera similar crearemos el resto de tablas
-
-*/
 
 CREATE TABLE tbStudent (
     idtbStudent int NOT NULL IDENTITY(1,1),
@@ -28,12 +11,6 @@ CREATE TABLE tbStudent (
     lastName varchar(50),
     
     PRIMARY KEY (idtbStudent));
-
-/*Misma lógica aplicada que en la tabla “tbAlumno” ahora en "tbMaestro" */   
-
-
-
-
 
 
 CREATE TABLE tbTeacher (
@@ -44,41 +21,14 @@ CREATE TABLE tbTeacher (
 );
 
 
-
-
-
-
-
-/*
-El campo “créditos” podemos escribirlo con acento o sin acento, sin embargo una buena práctica es escribirlo sin acento “creditos” por razones prácticas.
-El campo “créditos” se entiende que lleva un número, en este caso podemos decidir si ponerlo como tipo de dato texto o número, todo depende si el campo se usará en operaciones aritméticas. En este caso, asumiremos que “créditos” será usado para operaciones aritméticas, por tanto tiene tipo “INT” (Entero).
-Para relacionar la tabla tbMateria con tbMaestro, necesitamos la instrucción de “FOREIGN KEY” con lo cual establecemos : “Aplica llave foránea al campo “fk_idmaestro” que hace referencia con la tabla tbMaestro con el campo “idtbMaestro” ”
-
-
-*/
-
 CREATE TABLE tbSubject (
     idtSubject int NOT NULL IDENTITY(1,1),
     subjectName varchar(45) ,
     subjectDesc varchar(45),
     credits int,
     fk_idTeacher int,
-	fk_idStudent int, 
     PRIMARY KEY (idtSubject),
-    FOREIGN KEY (fk_idTeacher) REFERENCES tbTeacher  (idtbTeacher),
-	FOREIGN KEY (fk_idStudent) REFERENCES tbStudent (idtbStudent));
-
-	
-/*
-
-Finalmente terminamos con la tabla “tbAlumno_tbMaestro” que es una tabla transitoria ya que es el resultado de una relación “N a N”, el nombre de la tabla es libre, pero se recomienda poner un nombre alusivo a la relación de las tablas.
-Nótese que esta vez el campo identificador es “ID”, esto es otra prática común ya que la llave primeria sólo se refiere a un campod e la tabla, por tanto no se confundirá. Es decir, al nombrar un campo “ID” sabemos que hablamos de la llave primaria de una tabla, sin embargo el usuario puede nombrarlo como guste.
-Al igual que en el ejemplo anterior, hacemos referencia de los campos foráneos (fk) a los campos de la tablas correspondientes. De igual manera estos campos se pueden nombrar como el usuario guste, pueden llevar el prefjo “fk” o no.
-
-
-*/
-
-
+    FOREIGN KEY (fk_idTeacher) REFERENCES tbTeacher  (idtbTeacher));
 
 
 CREATE TABLE tbStudent_tbTeacher (
@@ -89,29 +39,75 @@ CREATE TABLE tbStudent_tbTeacher (
     FOREIGN KEY (fk_idtbStudent) REFERENCES tbStudent  (idtbStudent),
     FOREIGN KEY (fk_idtbTeacher) REFERENCES tbTeacher  (idtbTeacher));
 
+/*End of Creating database*/
+
+/*--------START OF SQL TRAINING--------*/
+
+/*Insert values into tbStudent*/
+
+INSERT INTO tbStudent VALUES ('John','Kirk')
+INSERT INTO tbStudent VALUES ('Steve', 'Patrick')
+INSERT INTO tbStudent VALUES ('Emma', 'Thompson')
+
+SELECT * FROM tbStudent;
+
+	
+update tbStudent set firstName='John',lastName='Lambert' where idtbStudent=1;
+update tbStudent set firstName='Steve',lastName='Patrick' where idtbStudent=2;
+update tbStudent set firstName='Emma',lastName='Thompson' where idtbStudent=3;
+
+SELECT * FROM tbStudent;
+
+/*Insert values to tbSubject*/
+
+INSERT INTO tbSubject values ('Math I','Basics of Math for College',30,1)
+INSERT INTO tbSubject values ('Math II','Advanced of Math for College',35,1)
+INSERT INTO tbSubject values ('Algorithms I','Basics of computing',35,2)
+INSERT INTO tbSubject values ('Algorithms II','Learning of computing',35,3)
+
+SELECT * FROM tbSubject;
+
+/*Insert values into tbTeacher*/
+	
+
+INSERT INTO tbTeacher VALUES ('Maria','Wilson')
+INSERT INTO tbTeacher VALUES ('Laura', 'Dawson')
+INSERT INTO tbTeacher VALUES ('Laurie', 'Greek')
+
+/*Alter table tbTeacher*/
+
+alter table tbTeacher add profession varchar(50)
+alter table tbTeacher add salary int
+
+update tbTeacher set profession='Mathematician', salary=20000 where idtbTeacher=1
+update tbTeacher set profession='Engineer', salary=40000 where idtbTeacher=2
+update tbTeacher set profession='Architect', salary=50000 where idtbTeacher=3
+
+SELECT * FROM tbTeacher;
+
+/*INSERT data to tbStudent_tbTeacher*/
+
+INSERT INTO tbStudent_tbTeacher values (1,1)
+INSERT INTO tbStudent_tbTeacher values (2,1)
+INSERT INTO tbStudent_tbTeacher values (3,1)
+INSERT INTO tbStudent_tbTeacher values (1,2)
+INSERT INTO tbStudent_tbTeacher values (2,2)
+INSERT INTO tbStudent_tbTeacher values (3,2)
+
+SELECT * FROM tbStudent_tbTeacher 
+
+
+/*JOIN Example*/
+	
+
+SELECT * FROM tbStudent_tbTeacher 
 
 
 
 
 
 
-
-
-	/* Insert records into table tbStudent */
-
-
-	INSERT INTO tbStudent VALUES ('John','Kirk')
-	INSERT INTO tbStudent VALUES ('Steve', 'Patrick')
-	INSERT INTO tbStudent VALUES ('Emma', 'Thompson')
-
-
-
-	SELECT * FROM tbStudent;
-
-
-
-
-	INSERT INTO tbAlumno_tbMaestro VALUES (1,2)
+/*END OF SQL TRAINING*/
 
     /*Crear vistas*/
     /*
