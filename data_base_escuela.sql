@@ -100,7 +100,9 @@ SELECT * FROM tbStudent_tbTeacher
 /*JOIN Example*/
 	
 
-SELECT * FROM tbStudent_tbTeacher 
+SELECT main.fk_idtbStudent,stu.firstName,stu.lastName,main.fk_idtbTeacher,teach.firstName,teach.lastName FROM tbStudent_tbTeacher main 
+inner join tbStudent stu on main.fk_idtbStudent=stu.idtbStudent
+inner join tbTeacher teach on main.fk_idtbTeacher=teach.idtbTeacher
 
 
 
