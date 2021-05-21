@@ -1,7 +1,6 @@
 
 /*Creatin of Database*/
 CREATE DATABASE dbSchool;
-
 USE dbSchool;
 
 
@@ -9,7 +8,6 @@ CREATE TABLE tbStudent (
     idtbStudent int NOT NULL IDENTITY(1,1),
     firstName varchar(50) , 
     lastName varchar(50),
-    
     PRIMARY KEY (idtbStudent));
 
 
@@ -17,8 +15,7 @@ CREATE TABLE tbTeacher (
     idtbTeacher int NOT NULL IDENTITY(1,1),
     firstName varchar(45) ,
     lastName varchar(45),
-    PRIMARY KEY (idtbTeacher )
-);
+    PRIMARY KEY (idtbTeacher ));
 
 
 CREATE TABLE tbSubject (
@@ -74,6 +71,8 @@ INSERT INTO tbTeacher VALUES ('Maria','Wilson')
 INSERT INTO tbTeacher VALUES ('Laura', 'Dawson')
 INSERT INTO tbTeacher VALUES ('Laurie', 'Greek')
 
+Select * from tbTeacher
+
 /*Alter table tbTeacher*/
 
 alter table tbTeacher add profession varchar(50)
@@ -105,9 +104,40 @@ inner join tbStudent stu on main.fk_idtbStudent=stu.idtbStudent
 inner join tbTeacher teach on main.fk_idtbTeacher=teach.idtbTeacher
 
 
+/*REPLACE EXAMPLE*/
 
 
+SELECT lastName as 'OLD VALUE',REPLACE(lastName,'Patrick','Pat') as 'NEW VALUE' from tbStudent
 
+/*Check again tbStudent to see the data is not modifief permanently*/
+Select * from tbStudent;
+
+/*DELETE EXAMPLE*/
+
+delete from tbSubject where idtSubject=3;
+delete from tbSubject
+Select * from tbSubject;
+
+/*Select for tables fron Excel import*/
+
+Select * from tbStudent$;
+
+
+/*DROP EXAMPLE*/
+
+drop table tbSubject;
+
+/*To delete a database, first change it*/
+use master;
+drop database dbSchool;
+
+
+/*Check teh tables created from EXCEL*/
+
+Select * from tbStudent$;
+select * from tbStudent_tbTeacher$;
+select * from tbSubject$;
+select * from tbTeacher$;
 
 /*END OF SQL TRAINING*/
 
