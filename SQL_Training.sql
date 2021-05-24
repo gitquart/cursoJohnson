@@ -6,6 +6,9 @@ CREATE DATABASE dbSchool;
 USE dbSchool;
 
 
+
+
+
 CREATE TABLE tbStudent (
     idtbStudent int NOT NULL IDENTITY(1,1),
     firstName varchar(50) , 
@@ -130,6 +133,7 @@ inner join tbTeacher teach on tb1.fk_idtbTeacher=teach.idtbTeacher
 
 /*VIDEO 6 / SECTION: REPLACE*/
 
+/*RREPLACE FUNCTION -> REPLACE ('Original String','String we want to change','The value that is going to replace')*/
 
 SELECT lastName as 'OLD VALUE',REPLACE(lastName,'Patrick','Pat') as 'NEW VALUE' from tbStudent
 
@@ -139,6 +143,7 @@ Select * from tbStudent;
 /*VIDEO 7 / SECTION :DELETE*/
 
 delete from tbSubject where idtSubject=3;
+delete from tbSubject where credits=35;
 delete from tbSubject
 Select * from tbSubject;
 
@@ -151,6 +156,8 @@ use master;
 drop database dbSchool;
 
 /*VIDEO 9 / SECTION: IMPORTING TABLE AND DATA FROM CSV, EXCEL.*/
+/*If you get this error when choosing the Excel Source : */
+/*Install the following : https://www.microsoft.com/en-us/download/confirmation.aspx?id=13255 */
 
 Select * from tbStudent$;
 
