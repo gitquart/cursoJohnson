@@ -1,7 +1,7 @@
 
 /*--------START OF SQL TRAINING DOCUMENT--------*/
 
-/*VIDEO/ SECTION: Creation of a database in Microsoft SQL Server*/
+/*VIDEO 1/ SECTION: Creation of a database in Microsoft SQL Server*/
 CREATE DATABASE dbSchool;
 USE dbSchool;
 
@@ -40,7 +40,7 @@ CREATE TABLE tbStudent_tbTeacher (
 
 
 
-/*VIDEO / SECTION: INSERT & SELECT*/
+/*VIDEO 2 / SECTION: INSERT & SELECT*/
 
 /*Insert values into tbStudent*/
 
@@ -59,6 +59,7 @@ INSERT INTO tbTeacher VALUES ('Laura', 'Dawson')
 INSERT INTO tbTeacher VALUES ('Laurie', 'Greek')
 
 Select * from tbTeacher
+SELECT * FROM tbStudent
 
 /*Insert values to tbSubject*/
 
@@ -80,11 +81,13 @@ INSERT INTO tbStudent_tbTeacher values (3,2)
 
 SELECT * FROM tbStudent_tbTeacher 
 
-/*VIDEO /SECTION : UPDATE*/
+/*VIDEO 3/SECTION : UPDATE*/
 
 /*Setting different WHERE conditions*/
 update tbStudent set firstName='Jonathan',lastName='Lambert' where idtbStudent=1;
 update tbStudent set firstName='Johnny' where lastName='Lambert';
+
+select * from tbStudent
 
 /*No WHERE condition*/
 
@@ -99,7 +102,7 @@ update tbStudent set firstName='Emma',lastName='Thompson' where idtbStudent=3;
 
 SELECT * FROM tbStudent;
 
-/*VIDEO / SECTION: : ALTER*/
+/*VIDEO 4 / SECTION: : ALTER*/
 
 /*Alter table tbTeacher*/
 
@@ -113,17 +116,19 @@ update tbTeacher set profession='Architect', salary=50000 where idtbTeacher=3
 SELECT * FROM tbTeacher;
 
 
-/*VIDEO / SECTION : JOIN*/
+/*VIDEO 5 / SECTION : JOIN*/
 	
 select * from tbStudent_tbTeacher
+SELECT * FROM tbStudent;
+SELECT * FROM tbTeacher;
 
 
-SELECT main.fk_idtbStudent,stu.firstName,stu.lastName,main.fk_idtbTeacher,teach.firstName,teach.lastName FROM tbStudent_tbTeacher main 
-inner join tbStudent stu on main.fk_idtbStudent=stu.idtbStudent
-inner join tbTeacher teach on main.fk_idtbTeacher=teach.idtbTeacher
+SELECT stu.idtbStudent as 'ID Student',stu.firstName as 'Student First name',stu.lastName as 'Student Last name',teach.idtbTeacher as 'ID teacher',teach.firstName as 'Teacher First Name',teach.lastName as 'Teacher last name' FROM tbStudent_tbTeacher tb1  
+inner join tbStudent stu on tb1.fk_idtbStudent=stu.idtbStudent
+inner join tbTeacher teach on tb1.fk_idtbTeacher=teach.idtbTeacher
 
 
-/*VIDEO / SECTION: REPLACE*/
+/*VIDEO 6 / SECTION: REPLACE*/
 
 
 SELECT lastName as 'OLD VALUE',REPLACE(lastName,'Patrick','Pat') as 'NEW VALUE' from tbStudent
@@ -131,13 +136,13 @@ SELECT lastName as 'OLD VALUE',REPLACE(lastName,'Patrick','Pat') as 'NEW VALUE' 
 /*Check again tbStudent to see the data is not modifief permanently*/
 Select * from tbStudent;
 
-/*VIDEO / SECTION :DELETE*/
+/*VIDEO 7 / SECTION :DELETE*/
 
 delete from tbSubject where idtSubject=3;
 delete from tbSubject
 Select * from tbSubject;
 
-/*VIDEO / SECTION : DROP */
+/*VIDEO 8 / SECTION : DROP */
 
 drop table tbSubject;
 
@@ -145,7 +150,7 @@ drop table tbSubject;
 use master;
 drop database dbSchool;
 
-/*VIDEO / SECTION: IMPORTING TABLE AND DATA FROM CSV, EXCEL.*/
+/*VIDEO 9 / SECTION: IMPORTING TABLE AND DATA FROM CSV, EXCEL.*/
 
 Select * from tbStudent$;
 
